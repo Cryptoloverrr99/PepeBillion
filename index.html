@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Web PEPEBILLION</title>
+    <style>
+        body {
+            background-color: #DA70D6; /* Couleur orchidée */
+            color: white; /* Couleur de texte blanche */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed; /* Fixe le header en haut */
+            top: 0; /* Positionne le header en haut */
+            width: 100%; /* Prend toute la largeur */
+            z-index: 1000; /* Assure que le header est au-dessus */
+            transition: opacity 0.5s; /* Pour une transition douce */
+        }
+        .profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px; /* Ajoutez cette ligne pour créer l'espacement à gauche */
+        }
+
+        .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    margin-left: -2cm; /* Déplace le bouton vers la gauche de 2 cm */
+    margin-right: 20px; /* Ajoutez cette ligne pour créer l'espacement à droite */
+        }
+
+        .menu-toggle div {
+    background-color: white;
+    width: 40px;
+    height: 5px;
+    border-radius: 3px;
+    transition: all 0.3s;
+
+        }
+        nav {
+            display: none;
+            position: fixed;
+            top: 50px; /* Ajusté pour être sous le header */
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 1000; /* Assure que le menu est au-dessus des autres éléments */
+            max-width: 200px; /* Limite la largeur du menu */
+        }
+        nav.active {
+            display: block;
+        }
+        nav .menu-item {
+            cursor: pointer;
+            color: white;
+            margin: 5px 0; /* Réduit l'espacement */
+            font-size: 1em;
+        }
+        nav .menu-item:hover {
+            text-decoration: underline;
+        }
+        nav a {
+            color: white; /* Texte en blanc */
+            text-decoration: none;
+            display: block; /* Pour superposer les éléments */
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .sub-menu {
+            display: none; /* Cacher le sous-menu par défaut */
+            padding-left: 15px; /* Indentation pour le sous-menu */
+            flex-direction: column; /* Alignement vertical */
+            gap: 10px; /* Espacement entre les éléments */
+        }
+        .sub-menu.active {
+            display: flex; /* Afficher le sous-menu quand il est actif */
+        }
+        .submenu-icon {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        main {
+            padding: 80px 20px; /* Ajout d'un padding supérieur pour éviter que le contenu soit caché sous le header */
+        }
+        section {
+            background-color: rgba(0, 0, 0, 0.5); /* Carré noir transparent */
+            border-radius: 10px;
+            margin: 40px 0;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+            text-align: center; /* Centrer le texte */
+        }
+        footer {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            text-align: center;
+        }
+        .social-links {
+            margin-top: 15px;
+        }
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 90px; /* Remonté de 2 cm supplémentaires */
+            right: 20px;
+            background-color: #ff0000; /* Couleur rouge */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: none; /* Initialement caché */
+            z-index: 1000; /* Assure que le bouton est au-dessus des autres éléments */
+        }
+        .back-to-top:hover {
+            background-color: #cc0000; /* Couleur rouge plus foncée */
+        }
+        .falling-text {
+            font-weight: bold; /* Texte en gras */
+            color: black; /* Couleur du texte */
+            font-size: 2em; /* Taille du texte, ajustez selon vos préférences */
+            text-align: center; /* Centrer le texte */
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Effet d'eau */
+            animation: flow 1s infinite; /* Animation pour l'effet de coulement */
+            margin: 20px 0; /* Espace au-dessus et en dessous du texte */
+        }
+        @keyframes flow {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(5px); }
+            100% { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <img src="67414dd6-d54a-4bb2-9ad4-7c1c9cf7fa02.webp" alt="Image de Profil" class="profile-img"> 
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+    
+    <nav id="menu">
+        <div class="menu-item" onclick="toggleSubMenu('social-menu')">🌐 Socials</div>
+        <div id="social-menu" class="sub-menu">
+            <a href="https://x.com/PepeBillion?t=XDH_Udeh4f0GLGLwOguiOQ&s=09" target="_blank">
+                <img src="images (1).png" alt="Twitter" class="submenu-icon"> Twitter
+            </a>
+            <a href="https://t.me/+f0OAzTpYr_9mNzNk" target="_blank">
+                <img src="telegram-icon-2048x2048-ns3mbgh4.png" alt="Telegram" class="submenu-icon"> Telegram
+            </a>
+        </div>
+        <div class="menu-item" onclick="toggleSubMenu('buy-menu')">🛒 Buy</div>
+        </div>
+    </nav>
+
+    <main>
+      <p style="color: black; font-size: 0.8em; text-align: center; font-weight: bold;">CA : TBA</p>
+        <section id="pepepenny">
+            <h2>$PEPEBILLION</h2>
+            <p>Once upon a time, in the digital kingdom of MemeLand, a little green toad named Pepe dreamed of becoming rich. But not just like that! He wanted to do it by dancing, because Pepe loved to dance. One day, as he was moonwalking in front of his pond, a brilliant idea crossed his mind: "What if I created my own crypto-currency?"</p>
+
+<p>PepeBillion was born! Every time someone bought a PepeBillion, a portion of the coins magically appeared on his back and he began to dance frantically. The more transactions took place, the more Pepe danced, attracting the attention of everyone in MemeLand.</p>
+
+<p>PepeBillion soon became the most popular crypto-currency, not for its value, but for the hilarious show it put on. People loved to see Pepe dance with every transaction. Dollar bills rained down, coins swirled in the air, and Pepe was happier than ever, dancing day and night.</p>
+
+<p>PepeBillion became the ultimate symbol of happiness and good humor, proving that sometimes, in the world of cryptos, it's the dancing that counts most.</p>
+        </section>
+
+        <section id="token-info">
+            <h2>TOKENOMIC</h2>
+            <div class="info-section" style="display: flex; flex-direction: column; gap: 10px; padding: 10px;">
+                <div class="info-item" style="display: flex; justify-content: space-between; border: 1px solid #ccc; padding: 5px; border-radius: 5px;">
+                    <strong>NAME :</strong> <span>PepeBillion</span>
+                </div>
+                <div class="info-item" style="display: flex; justify-content: space-between; border: 1px solid #ccc; padding: 5px; border-radius: 5px;">
+                    <strong>SYMBOL :</strong> <span>$Billion</span>
+                </div>
+                <div class="info-item" style="display: flex; justify-content: space-between; border: 1px solid #ccc; padding: 5px; border-radius: 5px;">
+                    <strong>SUPPLY :</strong> <span>1,000,000,000</span>
+                </div>
+                <div class="info-item" style="display: flex; justify-content: space-between; border: 1px solid #ccc; padding: 5px; border-radius: 5px;">
+                    <strong>BLOCKCHAIN :</strong> <span>Solana</span>
+                </div>
+                <div class="info-item" style="display: flex; justify-content: space-between; border: 1px solid #ccc; padding: 5px; border-radius: 5px;">
+                    <strong>LIQUIDITY POOL :</strong> <span>Locked</span>
+                </div>
+                <div class="info-item" style="display: flex; justify-content: space-between; border: 1px solid #ccc; padding: 5px; border-radius: 5px;">
+                    <strong>MINT AUTORITY :</strong> <span>Revoked</span>
+                </div>
+                <div class="info-item" style="display: flex; justify-content: space-between; border: 1px solid #ccc; padding: 5px; border-radius: 5px;">
+                    <strong>FREEZE AUTORITY :</strong> <span>Revoked</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="roadmap">
+            <h2>ROADMAP</h2>
+            <div class="info-section" style="display: flex; flex-direction: column; gap: 10px; padding: 10px;">
+                <div class="info-item" style="display: flex; justify-content: center; align-items: center; border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: transparent;">
+                    <strong>TOKEN LAUNCH</strong>
+                </div>
+                <div class="info-item" style="display: flex; justify-content: center; align-items: center; border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: transparent;">
+                    <strong>BURNING</strong>
+                </div>
+                <div class="info-item" style="display: flex; justify-content: center; align-items: center; border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: transparent;">
+                    <strong>MASSIVE PROMOTION</strong>
+                </div>
+                <div class="info-item" style="display: flex; justify-content: center; align-items: center; border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: transparent;">
+                    <strong>CMC & CG LISTING</strong>
+                </div>
+                <div class="info-item" style="display: flex; justify-content: center; align-items: center; border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: transparent;">
+                    <strong>COMMUNITY BUILDING</strong>
+                </div>
+            </div>
+        </section>
+        
+        <section id="burning-plan">
+            <h2>🔥 BURNING PLAN 🔥</h2>
+            <p>The burn percentage is based on the initial total supply, which is 1B.</p>
+            <div class="info-section" style="display: flex; flex-direction: column; gap: 10px; padding: 10px;">
+                <div class="info-item" style="display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 5px; border-radius: 5px; background-color: inherit;">
+                    <strong>PHASE 1</strong>
+                    <span>5% after Raydium's listing</span>
+                </div>
+                <div class="info-item" style="display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 5px; border-radius: 5px; background-color: inherit;">
+                    <strong>PHASE 2</strong>
+                    <span>5% at 1 Million MarketCap</span>
+                </div>
+                <div class="info-item" style="display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 5px; border-radius: 5px; background-color: inherit;">
+                    <strong>PHASE 3</strong>
+                    <span>5% at 2.5 Millions MarketCap</span>
+                </div>
+                <div class="info-item" style="display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 5px; border-radius: 5px; background-color: inherit;">
+                    <strong>PHASE 4</strong>
+                    <span>5% at 5 Millions MarketCap</span>
+                </div>
+                <div class="info-item" style="display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 5px; border-radius: 5px; background-color: inherit;">
+                    <strong>PHASE 5</strong>
+                    <span>5% at 7.5 Millions MarketCap</span>
+                </div>
+                    <div class="info-item" style="display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 5px; border-radius: 5px; background-color: inherit;">
+                    <strong>PHASE 6</strong>
+                    <span>5% at 10 Millions MarketCap</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="note" style="margin-bottom: 20px;"> <!-- Ajustement de la marge inférieure -->
+            <h2>NOTE</h2>
+            <p>You missed Dog Wif Hat? PepeBillion is probably the next 1B MarketCap. You will dance like PepeBillion, so don't be a JEET, just HOLD cause Dev is cooking. PepeBillion will print new millionaires.</p>
+        </section>
+    </main>
+    
+    <p class="falling-text">$PepeBillion, your favorite memecoin !</p>
+
+    <footer>
+        <p>&copy; 2024 PepeBillion. All rights reserved.</p>
+        <p>Follow us on social media:
+            <a href="https://x.com/PepeBillion?t=XDH_Udeh4f0GLGLwOguiOQ&s=09" target="_blank" class="social-links">Twitter</a> |
+            <a href="https://t.me/+f0OAzTpYr_9mNzNk" target="_blank" class="social-links">Telegram</a>
+        </p>
+    </footer>
+
+    <a href="#top" class="back-to-top">Back to Top</a>
+
+    <script>
+        let lastScrollTop = 0;
+        const header = document.getElementById('header');
+        const menu = document.getElementById('menu');
+
+        window.addEventListener('scroll', function() {
+            var sections = document.querySelectorAll('section');
+            var backToTop = document.querySelector('.back-to-top');
+            var currentScrollPos = window.pageYOffset || document.documentElement.scrollTop;
+
+            sections.forEach(function(section) {
+                if (section.getBoundingClientRect().top < window.innerHeight * 0.75) {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }
+            });
+
+            // Afficher le bouton "Back to Top" uniquement lorsque l'on est carrément en bas de la page
+            if ((window.innerHeight + currentScrollPos) >= (document.body.offsetHeight - 10)) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+
+            // Masquer le header et le menu lorsque l'on fait défiler vers le bas
+            if (currentScrollPos > lastScrollTop) {
+                header.style.opacity = '0'; // Masquer le header
+                menu.style.display = 'none'; // Masquer le menu
+            } else {
+                if (currentScrollPos === 0) {
+                    header.style.opacity = '1'; // Afficher le header uniquement en haut
+                }
+            }
+            lastScrollTop = currentScrollPos <= 0 ? 0 : currentScrollPos; // Pour éviter les valeurs négatives
+        });
+
+        function toggleMenu() {
+            menu.classList.toggle('active');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block'; // Afficher ou masquer le menu
+        }
+
+        function toggleSubMenu(menuId) {
+            var submenu = document.getElementById(menuId);
+            submenu.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
